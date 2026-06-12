@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Habibi — Portfolio</title>
-<meta name="description" content="Portfolio Habibi — Developer of LynX GUI Library">
+<title>Abeee — Portfolio</title>
+<meta name="description" content="Portfolio Abeee — Roblox Script Developer, creator of LynX Script">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -89,38 +89,36 @@ h1{font-size:clamp(36px,6vw,58px);font-weight:800;line-height:1.12;margin-bottom
 .btn-ghost{border:1px solid var(--border);color:var(--text-dim);background:var(--bg2)}
 .btn-ghost:hover{border-color:var(--secondary);color:var(--text)}
 
-/* GUI window mock */
-.window{
-  background:var(--bg2);
+/* profile photo */
+.photo-wrap{
+  position:relative;
+  width:min(340px,80%);
+  margin:0 auto;
+}
+.photo-wrap::before{
+  content:"";
+  position:absolute;inset:-14px;
+  border-radius:26px;
+  background:linear-gradient(135deg,var(--primary),var(--accent),var(--secondary));
+  opacity:.5;filter:blur(26px);
+  z-index:-1;
+}
+.photo{
+  display:block;width:100%;aspect-ratio:1/1;object-fit:cover;
+  border-radius:22px;
   border:1px solid var(--border);
-  border-radius:14px;
   box-shadow:0 24px 60px rgba(0,0,0,.55);
-  overflow:hidden;
-  font-size:13px;
-  transform:rotate(1.2deg);
+  transform:rotate(1.5deg);
   transition:transform .4s;
 }
-.window:hover{transform:rotate(0deg) scale(1.01)}
-.win-header{
-  display:flex;align-items:center;gap:10px;
-  padding:10px 14px;border-bottom:1px solid var(--border);background:var(--bg1);
+.photo-wrap:hover .photo{transform:rotate(0deg) scale(1.02)}
+.photo-badge{
+  position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);
+  background:var(--bg2);border:1px solid var(--border);border-radius:999px;
+  padding:8px 18px;font-size:13px;white-space:nowrap;
+  box-shadow:0 8px 24px rgba(0,0,0,.45);
 }
-.win-title{font-weight:700;color:var(--primary);font-size:14px}
-.win-sub{color:var(--text-dimmer);font-size:11px}
-.win-dot{margin-left:auto;width:22px;height:14px;background:var(--primary);border-radius:4px}
-.win-body{display:flex;min-height:230px}
-.win-side{width:118px;background:var(--bg1);border-right:1px solid var(--border);padding:10px 8px;display:flex;flex-direction:column;gap:6px}
-.side-item{padding:8px 10px;border-radius:8px;color:var(--text-dimmer);font-size:12px}
-.side-item.active{background:var(--bg2);color:var(--text);border-left:3px solid var(--primary)}
-.win-content{flex:1;padding:16px}
-.win-content h4{font-size:12px;color:var(--text);margin-bottom:12px;padding-left:10px;border-left:3px solid var(--primary)}
-.row{display:flex;align-items:center;justify-content:space-between;background:var(--bg3);border-radius:8px;padding:9px 12px;margin-bottom:8px;color:var(--text-dim);font-size:12px}
-.toggle{width:34px;height:18px;border-radius:999px;background:var(--bg4);position:relative}
-.toggle.on{background:var(--primary)}
-.toggle::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--text-dimmer)}
-.toggle.on::after{left:18px;background:var(--text)}
-.slider{width:90px;height:6px;border-radius:999px;background:var(--bg4);position:relative}
-.slider::after{content:"";position:absolute;left:0;top:0;height:6px;width:65%;border-radius:999px;background:linear-gradient(90deg,var(--primary),var(--accent))}
+.photo-badge b{color:var(--primary)}
 
 /* sections */
 section{padding:96px 0}
@@ -199,7 +197,7 @@ footer span{color:var(--primary)}
 @media(max-width:820px){
   .hero-grid,.about-grid{grid-template-columns:1fr}
   .nav-links{display:none}
-  .window{transform:none}
+  .photo{transform:none}
 }
 </style>
 </head>
@@ -221,37 +219,17 @@ footer span{color:var(--primary)}
   <div class="container hero-grid">
     <div>
       <div class="tag">Open for collaboration</div>
-      <h1>Hi, saya <span class="grad">Habibi</span>.<br>UI Library Developer.</h1>
-      <p>Saya membangun <b>LynX</b> — sebuah GUI library yang ringan, modern, dan dapat dikustomisasi penuh. Fokus saya: desain yang aesthetic, performa, dan developer experience.</p>
+      <h1>Hi, saya <span class="grad">Abeee</span>.<br>Roblox Script Developer.</h1>
+      <p>Saya membangun <b>LynX Script</b> — script Roblox yang ringan, modern, dan kaya fitur. Fokus saya: fitur yang berguna, performa, dan pengalaman pengguna yang aesthetic.</p>
       <div class="btns">
         <a class="btn btn-primary" href="#projects">Lihat Project</a>
         <a class="btn btn-ghost" href="https://github.com/unknownxx78x-pixel" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
     </div>
 
-    <div class="window" aria-hidden="true">
-      <div class="win-header">
-        <div>
-          <div class="win-title">LynX</div>
-          <div class="win-sub">v1.0 • by habibi</div>
-        </div>
-        <div class="win-dot"></div>
-      </div>
-      <div class="win-body">
-        <div class="win-side">
-          <div class="side-item active">⌂ Main</div>
-          <div class="side-item">⚙ Settings</div>
-          <div class="side-item">✦ Visuals</div>
-          <div class="side-item">≡ Config</div>
-        </div>
-        <div class="win-content">
-          <h4>Main</h4>
-          <div class="row">Enable Feature <span class="toggle on"></span></div>
-          <div class="row">Auto Save Config <span class="toggle on"></span></div>
-          <div class="row">Speed <span class="slider"></span></div>
-          <div class="row">Notifications <span class="toggle"></span></div>
-        </div>
-      </div>
+    <div class="photo-wrap">
+      <img class="photo" src="assets/profile.jpg" alt="Foto profil Abeee">
+      <div class="photo-badge"><b>Abeee</b> • LynX Script Developer</div>
     </div>
   </div>
 </header>
@@ -262,13 +240,13 @@ footer span{color:var(--primary)}
     <h2 class="reveal">Tentang Saya<span class="accent-bar"></span></h2>
     <div class="about-grid">
       <div class="reveal">
-        <p>Saya seorang developer yang suka membangun tools dan interface yang rapi, fungsional, dan enak dipakai. Project utama saya adalah <b>LynX GUI Library</b> — library UI lengkap dengan window system, sidebar navigation, toggle, slider, dropdown, notification, dan config system otomatis.</p>
-        <p>Saya percaya UI yang baik adalah UI yang simple tapi punya karakter — itulah filosofi di balik setiap project yang saya buat.</p>
+        <p>Saya seorang Roblox script developer yang suka membangun script yang rapi, fungsional, dan enak dipakai. Project utama saya adalah <b>LynX Script</b> — script Roblox lengkap dengan berbagai fitur, interface yang modern, dan config system otomatis.</p>
+        <p>Saya percaya script yang baik adalah script yang simple tapi powerful — itulah filosofi di balik setiap project yang saya buat.</p>
       </div>
       <div class="stats reveal">
         <div class="stat"><b>2K+</b><span>Baris kode di LynX</span></div>
-        <div class="stat"><b>10+</b><span>Komponen UI</span></div>
-        <div class="stat"><b>100%</b><span>Customizable theme</span></div>
+        <div class="stat"><b>10+</b><span>Fitur di LynX Script</span></div>
+        <div class="stat"><b>100%</b><span>Customizable config</span></div>
         <div class="stat"><b>∞</b><span>Ide selanjutnya</span></div>
       </div>
     </div>
@@ -282,15 +260,15 @@ footer span{color:var(--primary)}
     <div class="cards">
       <div class="card reveal">
         <div class="card-icon">🦊</div>
-        <h3>LynX GUI Library</h3>
-        <p>GUI library modern dengan window draggable &amp; resizable, sidebar navigation, toggle, slider, dropdown, keybind, color picker, notification system, dan auto-save config berbasis JSON.</p>
-        <div class="chips"><span class="chip">Lua</span><span class="chip">UI/UX</span><span class="chip">Library</span></div>
-        <a class="card-link" href="https://github.com/unknownxx78x-pixel/Library" target="_blank" rel="noopener">Lihat Repository →</a>
+        <h3>LynX Script</h3>
+        <p>Script Roblox modern dengan banyak fitur, interface draggable &amp; resizable, toggle, slider, dropdown, keybind, notification system, dan auto-save config berbasis JSON.</p>
+        <div class="chips"><span class="chip">Lua</span><span class="chip">Roblox</span><span class="chip">Script</span></div>
+        <a class="card-link" href="https://github.com/4LynxX/Lynx" target="_blank" rel="noopener">Lihat Repository →</a>
       </div>
       <div class="card reveal">
         <div class="card-icon purple">⚙️</div>
         <h3>Config System</h3>
-        <p>Sistem konfigurasi otomatis di dalam LynX: deep-copy state, dirty-flag detection, dan auto-save berkala — sehingga preferensi pengguna selalu tersimpan tanpa perlu tombol save.</p>
+        <p>Sistem konfigurasi otomatis di dalam LynX Script: deep-copy state, dirty-flag detection, dan auto-save berkala — sehingga preferensi pengguna selalu tersimpan tanpa perlu tombol save.</p>
         <div class="chips"><span class="chip">Lua</span><span class="chip">JSON</span><span class="chip">State</span></div>
         <a class="card-link" href="https://github.com/unknownxx78x-pixel/Library" target="_blank" rel="noopener">Lihat Repository →</a>
       </div>
@@ -304,11 +282,8 @@ footer span{color:var(--primary)}
     </div>
 
     <div class="code mono reveal">
-<pre><span class="c1">-- Pakai LynX semudah ini:</span>
-<span class="c3">local</span> Library = <span class="c2">loadstring</span>(game:HttpGet(<span class="c4">"https://raw.githubusercontent.com/unknownxx78x-pixel/Library/main/Lib1.lua"</span>))()
-
-Library:<span class="c2">CreateWindow</span>({ Title = <span class="c4">"LynX"</span>, Subtitle = <span class="c4">"by habibi"</span> })
-Library:<span class="c2">CreatePage</span>(<span class="c4">"Main"</span>, <span class="c4">"Main"</span>)</pre>
+<pre><span class="c1">-- Pakai LynX Script semudah ini:</span>
+<span class="c2">loadstring</span>(game:<span class="c2">HttpGet</span>(<span class="c4">"https://raw.githubusercontent.com/4LynxX/Lynx/refs/heads/main/LynxxMain.lua"</span>))()</pre>
     </div>
   </div>
 </section>
@@ -319,11 +294,11 @@ Library:<span class="c2">CreatePage</span>(<span class="c4">"Main"</span>, <span
     <h2 class="reveal">Keahlian<span class="accent-bar"></span></h2>
     <div class="skill-grid">
       <div class="skill reveal"><h4>Lua <span>90%</span></h4><div class="bar"><i data-w="90"></i></div></div>
-      <div class="skill reveal"><h4>UI / UX Design <span>85%</span></h4><div class="bar"><i data-w="85"></i></div></div>
+      <div class="skill reveal"><h4>Roblox Scripting <span>90%</span></h4><div class="bar"><i data-w="90"></i></div></div>
       <div class="skill reveal"><h4>HTML / CSS <span>80%</span></h4><div class="bar"><i data-w="80"></i></div></div>
       <div class="skill reveal"><h4>JavaScript <span>70%</span></h4><div class="bar"><i data-w="70"></i></div></div>
+      <div class="skill reveal"><h4>UI / UX Design <span>85%</span></h4><div class="bar"><i data-w="85"></i></div></div>
       <div class="skill reveal"><h4>Git / GitHub <span>80%</span></h4><div class="bar"><i data-w="80"></i></div></div>
-      <div class="skill reveal"><h4>System Design <span>75%</span></h4><div class="bar"><i data-w="75"></i></div></div>
     </div>
   </div>
 </section>
@@ -333,14 +308,14 @@ Library:<span class="c2">CreatePage</span>(<span class="c4">"Main"</span>, <span
     <div class="contact-box reveal">
       <div class="sec-label">// Contact</div>
       <h2 style="margin-bottom:14px">Mari Berkolaborasi<span class="accent-bar"></span></h2>
-      <p>Tertarik dengan LynX atau ingin berkolaborasi di project lain? Hubungi saya lewat GitHub.</p>
+      <p>Tertarik dengan LynX Script atau ingin berkolaborasi di project lain? Hubungi saya lewat GitHub.</p>
       <a class="btn btn-primary" href="https://github.com/unknownxx78x-pixel" target="_blank" rel="noopener">github.com/unknownxx78x-pixel ↗</a>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="container">© 2026 <span>Habibi</span> — dibangun dengan tema LynX.</div>
+  <div class="container">© 2026 <span>Abeee</span> — dibangun dengan tema LynX.</div>
 </footer>
 
 <script>
