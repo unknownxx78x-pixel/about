@@ -20,11 +20,21 @@ html{scroll-behavior:smooth}
 body{background:var(--bg1);color:var(--t);font-family:'Sora',sans-serif;line-height:1.6;overflow-x:hidden;cursor:none}
 
 /* CURSOR */
-.cursor{position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:difference}
-.cursor-dot{width:8px;height:8px;background:#fff;border-radius:50%;transform:translate(-50%,-50%);transition:transform .1s}
-.cursor-ring{width:36px;height:36px;border:1.5px solid rgba(255,140,0,.6);border-radius:50%;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s,transform .15s}
-body:has(a:hover) .cursor-ring,body:has(button:hover) .cursor-ring{width:50px;height:50px;border-color:var(--p)}
-@media(max-width:768px){.cursor,.cursor-dot,.cursor-ring{display:none}body{cursor:auto}}
+.cursor-dot{position:fixed;pointer-events:none;z-index:9999;
+  width:6px;height:6px;background:var(--p);border-radius:50%;
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,background .2s;
+}
+.cursor-ring{position:fixed;pointer-events:none;z-index:9998;
+  width:32px;height:32px;
+  border:1.5px solid rgba(255,140,0,.45);
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  transition:width .25s ease,height .25s ease,border-color .25s ease,opacity .25s;
+}
+.cursor-hover .cursor-dot{width:8px;height:8px;background:#FFA930}
+.cursor-hover .cursor-ring{width:44px;height:44px;border-color:rgba(255,140,0,.7)}
+@media(max-width:768px){.cursor-dot,.cursor-ring{display:none}body{cursor:auto}}
 
 /* PARTICLES CANVAS */
 #particles{position:fixed;inset:0;z-index:-2;pointer-events:none}
@@ -79,9 +89,13 @@ nav.scrolled{background:rgba(14,12,11,.95)}
 
 h1{font-size:clamp(30px,5.5vw,54px);font-weight:800;line-height:1.13;margin-bottom:16px;
   animation:fadeSlideUp .6s .1s ease both;}
-.grad{background:linear-gradient(90deg,var(--p),var(--a),var(--s));-webkit-background-clip:text;background-clip:text;color:transparent;
-  background-size:200% auto;animation:gradShift 4s linear infinite;}
-@keyframes gradShift{0%{background-position:0%}100%{background-position:200%}}
+.grad{
+  background:linear-gradient(90deg,var(--p),var(--a),var(--s),var(--a),var(--p));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  background-size:300% auto;
+  animation:gradShift 5s linear infinite;
+}
+@keyframes gradShift{0%{background-position:0% center}100%{background-position:300% center}}
 
 .hero-text p{color:var(--td);font-size:15px;max-width:460px;margin-bottom:28px;
   animation:fadeSlideUp .6s .2s ease both;}
@@ -380,10 +394,8 @@ footer span{color:var(--p)}
 </head>
 <body>
 <canvas id="particles"></canvas>
-<div class="cursor" id="cursorDot" style="position:fixed;pointer-events:none;z-index:9999">
-  <div class="cursor-dot" style="position:fixed;width:8px;height:8px;background:#fff;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none"></div>
-</div>
-<div class="cursor-ring" id="cursorRing" style="position:fixed;pointer-events:none;z-index:9998;width:36px;height:36px;border:1.5px solid rgba(255,140,0,.6);border-radius:50%;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
 <body>
 
@@ -542,26 +554,28 @@ footer span{color:var(--p)}
 </footer>
 
 <script>
-// CURSOR
+// CURSOR — dot snaps, ring lerps smooth
 (function(){
   if(window.matchMedia('(max-width:768px)').matches) return;
-  var dot = document.getElementById('cursorDot').querySelector('.cursor-dot');
+  var dot = document.getElementById('cursorDot');
   var ring = document.getElementById('cursorRing');
-  var mx=0,my=0,rx=0,ry=0;
+  var mx=window.innerWidth/2, my=window.innerHeight/2;
+  var rx=mx, ry=my;
+  var hovering=false;
   document.addEventListener('mousemove',function(e){
-    mx=e.clientX;my=e.clientY;
-    dot.style.left=mx+'px';dot.style.top=my+'px';
-  });
-  function lerp(a,b,t){return a+(b-a)*t}
-  function animRing(){
-    rx=lerp(rx,mx,.12);ry=lerp(ry,my,.12);
-    ring.style.left=rx+'px';ring.style.top=ry+'px';
-    requestAnimationFrame(animRing);
-  }
-  animRing();
+    mx=e.clientX; my=e.clientY;
+    dot.style.left=mx+'px'; dot.style.top=my+'px';
+  },{passive:true});
+  (function loop(){
+    rx+=(mx-rx)*.10;
+    ry+=(my-ry)*.10;
+    ring.style.left=rx+'px';
+    ring.style.top=ry+'px';
+    requestAnimationFrame(loop);
+  })();
   document.querySelectorAll('a,button').forEach(function(el){
-    el.addEventListener('mouseenter',function(){ring.style.width='50px';ring.style.height='50px';ring.style.borderColor='var(--p)'});
-    el.addEventListener('mouseleave',function(){ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(255,140,0,.6)'});
+    el.addEventListener('mouseenter',function(){dot.classList.add('cursor-hover');ring.classList.add('cursor-hover')});
+    el.addEventListener('mouseleave',function(){dot.classList.remove('cursor-hover');ring.classList.remove('cursor-hover')});
   });
 })();
 
