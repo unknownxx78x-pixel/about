@@ -384,7 +384,7 @@ footer span{color:var(--p)}
         </div>
         <div class="dc-counts">
           <div class="dc-stat online"><b id="dc-online">—</b><span>Online</span></div>
-          <div class="dc-stat members"><b id="dc-members">—</b><span>Members</span></div>
+          <div class="dc-stat members"><b id="dc-members">—</b><span>Active Now</span></div>
         </div>
       </div>
       <div class="socials">
@@ -420,19 +420,23 @@ function loadDiscordWidget(){
     .then(function(d){
       var onlineEl = document.getElementById('dc-online');
       var membersEl = document.getElementById('dc-members');
-      if(onlineEl) onlineEl.textContent = d.presence_count || '0';
-      if(membersEl) membersEl.textContent = d.members ? d.members.length : '—';
+      if(!onlineEl) return;
+      var members = d.members || [];
+      var online = members.filter(function(m){ return m.status === 'online'; }).length;
+      var active = members.length;
+      onlineEl.textContent = online;
+      membersEl.textContent = active;
     })
     .catch(function(){
-      var onlineEl = document.getElementById('dc-online');
-      if(onlineEl) onlineEl.closest('.dc-widget').style.display='none';
+      var w = document.getElementById('dc-widget');
+      if(w) w.style.display = 'none';
     });
 }
 loadDiscordWidget();
 
+function copyCode(btn){
   var text = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/4LynxX/Lynx/refs/heads/main/LynxxMain.lua"))()';
   navigator.clipboard.writeText(text).then(function(){
-    var icon = btn.querySelector('svg');
     btn.classList.add('copied');
     btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
     setTimeout(function(){
