@@ -146,11 +146,22 @@ h2{font-size:clamp(22px,3.8vw,32px);font-weight:800;margin-bottom:32px}
 .clink:hover{text-decoration:underline}
 
 /* CODE */
+.code-wrap{position:relative;margin-top:28px}
 .code{
   background:var(--bg1);border:1px solid var(--b);border-radius:12px;
-  padding:20px;font-size:13px;overflow-x:auto;margin-top:28px;
+  padding:20px 56px 20px 20px;font-size:13px;overflow-x:auto;
   box-shadow:0 10px 30px rgba(0,0,0,.35);
 }
+.copy-btn{
+  position:absolute;top:50%;right:12px;transform:translateY(-50%);
+  background:var(--bg3);border:1px solid var(--b);border-radius:8px;
+  color:var(--tdd);cursor:pointer;
+  width:34px;height:34px;display:flex;align-items:center;justify-content:center;
+  transition:background .18s,border-color .18s,color .18s;flex-shrink:0;
+}
+.copy-btn:hover{background:var(--bg2);border-color:var(--p);color:var(--p)}
+.copy-btn svg{width:15px;height:15px;pointer-events:none}
+.copy-btn.copied{border-color:var(--ok);color:var(--ok)}
 .c1{color:var(--tdd)}.c2{color:var(--p)}.c4{color:var(--ok)}
 
 /* SKILLS */
@@ -248,7 +259,7 @@ footer span{color:var(--p)}
       <p>I build <b>LynX Script</b> — a lightweight, modern, and feature-rich Roblox script. My focus: useful features, performance, and an aesthetic user experience.</p>
       <div class="btns">
         <a class="btn btn-p" href="#projects">View Projects</a>
-        <a class="btn btn-g" href="https://github.com/unknownxx78x-pixel" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn btn-g" href="https://github.com/unknownxx78x-pixel" target="_blank" rel="noopener">GitHub <svg style="display:inline;vertical-align:middle;margin-left:2px" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></a>
       </div>
     </div>
     <div class="photo-col">
@@ -313,9 +324,14 @@ footer span{color:var(--p)}
         <a class="clink" href="https://github.com/unknownxx78x-pixel/project" target="_blank" rel="noopener">View Repository →</a>
       </div>
     </div>
-    <div class="code mono reveal">
+    <div class="code-wrap reveal">
+      <div class="code mono">
 <pre><span class="c1">-- Use LynX Script this easily:</span>
 <span class="c2">loadstring</span>(game:<span class="c2">HttpGet</span>(<span class="c4">"https://raw.githubusercontent.com/4LynxX/Lynx/refs/heads/main/LynxxMain.lua"</span>))()</pre>
+      </div>
+      <button class="copy-btn" aria-label="Copy code" onclick="copyCode(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      </button>
     </div>
   </div>
 </section>
@@ -368,6 +384,18 @@ footer span{color:var(--p)}
 </footer>
 
 <script>
+function copyCode(btn){
+  var text = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/4LynxX/Lynx/refs/heads/main/LynxxMain.lua"))()';
+  navigator.clipboard.writeText(text).then(function(){
+    var icon = btn.querySelector('svg');
+    btn.classList.add('copied');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    setTimeout(function(){
+      btn.classList.remove('copied');
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+    }, 2000);
+  });
+}
 (function(){
   'use strict';
   var io = new IntersectionObserver(function(entries){
